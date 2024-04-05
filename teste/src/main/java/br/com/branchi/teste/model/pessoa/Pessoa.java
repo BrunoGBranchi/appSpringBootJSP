@@ -10,14 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false, of = { "id" })
 @Table(name = "pessoa")
 public class Pessoa {
 
@@ -31,8 +29,11 @@ public class Pessoa {
 	@Column(name = "datanascimento")
 	private LocalDate dataNascimento;
 	
-	@Column(name = "cpf", length = 14, nullable = false)
+	@Column(name = "cpf", length = 14)
 	private String cpf;
+	
+	@Column(name = "cargo", length = 100)
+	private String cargo;
 	
 	@Column(name = "funcionario", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
 	private boolean funcionario;
@@ -47,6 +48,7 @@ public class Pessoa {
 		this.cpf = pessoaDTO.getCpf();
 		this.funcionario = pessoaDTO.isFuncionario();
 		this.gerente = pessoaDTO.isGerente();
+		this.cargo = pessoaDTO.getCargo();
 	}
 	
 	public Pessoa(Long id, PessoaDTO pessoaDTO) {
@@ -57,6 +59,7 @@ public class Pessoa {
 		this.cpf = pessoaDTO.getCpf();
 		this.funcionario = pessoaDTO.isFuncionario();
 		this.gerente = pessoaDTO.isGerente();
+		this.cargo = pessoaDTO.getCargo();
 	}
 	
 	

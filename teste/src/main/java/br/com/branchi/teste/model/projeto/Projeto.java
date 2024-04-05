@@ -22,14 +22,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false, of = { "id" })
 @Table(name = "projeto")
 public class Projeto {
 
@@ -70,11 +68,42 @@ public class Projeto {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	    name = "membros",
-	    joinColumns = @JoinColumn(name = "idprojeto", referencedColumnName = "idprojeto"),
-	    inverseJoinColumns = @JoinColumn(name = "idpessoa", referencedColumnName = "idpessoa"),
+	    joinColumns = @JoinColumn(name = "idprojeto", referencedColumnName = "id"),
+	    inverseJoinColumns = @JoinColumn(name = "idpessoa", referencedColumnName = "id"),
 	    foreignKey = @ForeignKey(name = "fk_membros_projeto"),
 	    inverseForeignKey = @ForeignKey(name = "fk_membros_pessoa")
 	)
 	private List<Pessoa> membros;
+
+	public Projeto(ProjetoDTO projetoDTO) {
+		super();
+		this.nome = projetoDTO.getNome();
+		this.descricao = projetoDTO.getDescricao();
+		this.dataInicio = projetoDTO.getDataInicio();
+		this.dataPrevisaoFim = projetoDTO.getDataPrevisaoFim();
+		this.dataFim = projetoDTO.getDataFim();
+		this.orcamento = projetoDTO.getOrcamento();
+		this.status = projetoDTO.getStatus();
+		this.risco = projetoDTO.getRisco();
+		this.gerente = projetoDTO.getGerente();
+		this.membros = projetoDTO.getMembros();
+	}
+	
+	public Projeto(Long id, ProjetoDTO projetoDTO) {
+		super();
+		this.id = id;
+		this.nome = projetoDTO.getNome();
+		this.descricao = projetoDTO.getDescricao();
+		this.dataInicio = projetoDTO.getDataInicio();
+		this.dataPrevisaoFim = projetoDTO.getDataPrevisaoFim();
+		this.dataFim = projetoDTO.getDataFim();
+		this.orcamento = projetoDTO.getOrcamento();
+		this.status = projetoDTO.getStatus();
+		this.risco = projetoDTO.getRisco();
+		this.gerente = projetoDTO.getGerente();
+		this.membros = projetoDTO.getMembros();
+	}
+	
+	
 	
 }
